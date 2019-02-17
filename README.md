@@ -12,14 +12,15 @@ bye redux? 🙊
 ```ts
 import { createSharedStateHook } from 'use-state-shared';
 
-// create custom set state and set default value only once. 
+// create custom `useState` hook and set default value only once. 
 export const customUseState = createSharedStateHook(0);
 
 // later import `customUseState` anywhere in the app
 
 // use the same way as `useState` inside multiple different components. 
+
 // `currentState` will be always synced between all of them. 
-// changing it in any component will cause change in every component using it
+// changing it in any component will cause change in every component using it with updated value
 const [currentState, setState] = customUseState();
 ```
 
