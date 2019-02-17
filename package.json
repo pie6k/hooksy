@@ -1,0 +1,27 @@
+{
+  "name": "use-state-shared",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --watch",
+    "build": "rimraf dist && tsc",
+    "demo": "parcel demo/index.html",
+    "demo:build": "rimraf demoBuild & parcel build demo/index.html -d demoBuild --no-source-maps",
+    "demo:deploy": "yarn demo:build --public-url \"/fuzzystring\" && gh-pages -d demoBuild"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.3",
+    "@types/react-dom": "^16.8.2",
+    "gh-pages": "^2.0.1",
+    "parcel-bundler": "^1.11.0",
+    "rimraf": "^2.6.3",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {}
+}
