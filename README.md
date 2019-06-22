@@ -1,6 +1,6 @@
-# use-state-shared
+# hooksy
 
-[demo](https://pie6k.github.io/use-state-shared/)
+[demo](https://pie6k.github.io/hooksy/)
 
 Create custom `useState` hook that can be used inside multiple components and will share state across all of them (and will update all of them if state is changed)
 
