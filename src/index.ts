@@ -1,41 +1,54 @@
-import { useState, useEffect } from 'react';
-import { removeArrayElement } from './services';
+import { useLayoutEffect } from 'react';
+import { removeArrayElement, useForceUpdate } from './services';
 
-type ValueUpdater<T> = (newValue: T) => void;
-type ForceUpdateFunction = () => void;
-
-function useForceUpdate(): ForceUpdateFunction {
-  const [, updateComponent] = useState<{}>({});
-
-  return () => {
-    updateComponent({});
-  };
+interface StoreListeningComponentData<T> {
+  update: () => void;
+  options?: UseStoreStateOptions<T>;
 }
 
-export function createSharedStateHook<T>(defaultValue: T) {
-  let sharedStateValue = defaultValue;
-  const registeredForceUpdateHooks: ForceUpdateFunction[] = [];
+export interface UseStoreStateOptions<T> {
+  shouldUpdate?: (oldState: T, newState: T) => boolean;
+}
 
-  function updateSharedState(newValue: T) {
-    sharedStateValue = newValue;
-    registeredForceUpdateHooks.forEach((forceUpdateSingleComponent) => {
-      forceUpdateSingleComponent();
+export function createStore<T>(defaultValue: T) {
+  let storeState = defaultValue;
+  const storeListeningComponents: StoreListeningComponentData<T>[] = [];
+
+  function updateStoreState(newStoreState: T) {
+    const oldStoreState = storeState;
+    storeState = newStoreState;
+    storeListeningComponents.forEach(({ update, options }) => {
+      const shouldUpdate =
+        !options ||
+        !options.shouldUpdate ||
+        !options.shouldUpdate(oldStoreState, newStoreState);
+
+      if (!shouldUpdate) {
+        return;
+      }
+
+      update();
     });
   }
 
-  return function useSharedState(): [T, ValueUpdater<T>] {
+  function useStoreState(options?: UseStoreStateOptions<T>) {
     const forceUpdate = useForceUpdate();
 
-    useEffect(() => {
-      registeredForceUpdateHooks.push(forceUpdate);
+    useLayoutEffect(() => {
+      const listeningData: StoreListeningComponentData<T> = {
+        options,
+        update: forceUpdate,
+      };
+
+      storeListeningComponents.push(listeningData);
 
       return () => {
-        removeArrayElement(registeredForceUpdateHooks, forceUpdate);
+        removeArrayElement(storeListeningComponents, listeningData);
       };
     });
 
-    return [sharedStateValue, updateSharedState];
-  };
-}
+    return [storeState, updateStoreState] as const;
+  }
 
-export default createSharedStateHook;
+  return [useStoreState, updateStoreState] as const;
+}

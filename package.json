@@ -1,5 +1,5 @@
 {
-  "name": "use-state-shared",
+  "name": "hooksy",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "gh-pages": "^2.0.1",
     "parcel-bundler": "^1.11.0",
     "rimraf": "^2.6.3",
-    "typescript": "^3.3.3"
+    "typescript": "^3.5.2"
   },
   "dependencies": {
     "react": "^16.0.0",
