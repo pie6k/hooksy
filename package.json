@@ -9,7 +9,7 @@
     "build": "rimraf dist && tsc",
     "demo": "parcel demo/index.html",
     "demo:build": "rimraf demoBuild & parcel build demo/index.html -d demoBuild --no-source-maps",
-    "demo:deploy": "yarn demo:build --public-url \"/use-state-shared\" && gh-pages -d demoBuild"
+    "demo:deploy": "yarn demo:build --public-url \"/hooksy\" && gh-pages -d demoBuild"
   },
   "peerDependencies": {
     "react": "^16.8.0",

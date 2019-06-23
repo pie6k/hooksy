@@ -1,32 +1,30 @@
-# use-state-shared
+# hooksy
 
-[demo](https://pie6k.github.io/use-state-shared/)
+[demo](https://pie6k.github.io/hooksy/)
 
 Create custom `useState` hook that can be used inside multiple components and will share state across all of them (and will update all of them if state is changed)
-
 
 ## API
 
 ```ts
-import { createSharedStateHook } from 'use-state-shared';
+import { createSharedStateHook } from 'hooksy';
 
-// create custom `useState` hook and set default value only once. 
+// create custom `useState` hook and set default value only once.
 export const customUseState = createSharedStateHook(0);
 
 // later import `customUseState` anywhere in the app
 
-// use the same way as `useState` inside multiple different components. 
+// use the same way as `useState` inside multiple different components.
 
-// `currentState` will be always synced between all of them. 
+// `currentState` will be always synced between all of them.
 // changing it in any component will cause change in every component using it with updated value
 const [currentState, setState] = customUseState();
 ```
 
-
 ## Example
 
 ```tsx
-import { createSharedStateHook } from 'use-state-shared';
+import { createSharedStateHook } from 'hooksy';
 
 // create custom state hook with some initial value
 // such hook can be created in some separated file and imported to many different components
