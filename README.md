@@ -143,7 +143,7 @@ Let's say username is case insensitive and we want to re-render some component o
 
 To do that, we can use user store hook like
 ```ts
-useUserStore({ 
+const [user, setUser] = useUserStore({ 
   shouldUpdate(oldUser, newUser) {
     return oldUser.username.toLowerCase() !== newUser.username.toLowerCase()
   }
