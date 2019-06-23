@@ -80,7 +80,7 @@ export function Footer() {
 }
 ```
 
-If the button is pressed, both first and 2nd component will get updated.
+If the logout button is pressed, both components using user store will get updated.
 
 As you might notice - we've implemented login and logout actions inside components which might not be good idea. We can easily avoid that by creating custom hooks with all needed actions (and selectors or anything javascript will allow you to write)
 
