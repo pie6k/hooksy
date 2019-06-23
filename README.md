@@ -148,3 +148,28 @@ const [user, setUser] = useUserStore({
     return oldUser.username.toLowerCase() !== newUser.username.toLowerCase()
   }
 })
+```
+
+__Modify store state from outside of any component__
+Let's say you want to log out user when some external event occurs. eg browser window get's closed etc
+
+To do that, you can:
+
+```ts
+// userStore.ts
+import { createStore } from 'hooksy';
+
+interface UserData {
+  username: string;
+}
+
+const defaultUser: UserData = { username: 'Foo' };
+
+// NOTE 2nd tuple element allows us to update user store anywhere (and all components using it will get re-rendered)
+export const [useUserStore, updateUser] = createStore(defaultUser); // we've created store with initial value.
+
+// later on you can use it like
+onSomeCustomBrowserEvent(() => {
+  updateUser(null);
+})
+```
