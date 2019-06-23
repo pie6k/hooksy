@@ -137,4 +137,14 @@ export function UserInfo() {
 }
 ```
 
-etc.
+__Avoiding re-renders when they're not needed__
+
+Let's say username is case insensitive and we want to re-render some component only when username is really changed eg 'Foo' changed to 'foo' should NOT cause re-render
+
+To do that, we can use user store hook like
+```ts
+useUserStore({ 
+  shouldUpdate(oldUser, newUser) {
+    return oldUser.username.toLowerCase() !== newUser.username.toLowerCase()
+  }
+})
