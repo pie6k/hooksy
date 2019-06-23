@@ -27,7 +27,10 @@ interface UserData {
   username: string;
 }
 
-export const [useUserStore] = createStore<UserData>(null);
+const defaultUser: UserData = { username: 'Foo' };
+
+export const [useUserStore] = createStore(defaultUser); // we've created store with initial value.
+// useUserStore has the same signature like react useState hook, but the state will be shared across all components using it
 ```
 
 Our store is ready and can be used inside any react component. If any component will modify user store state - all components using it will be re-rednered.
